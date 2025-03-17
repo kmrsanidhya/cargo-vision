@@ -26,7 +26,8 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuItem,
-  SidebarMenuButton
+  SidebarMenuButton,
+  useSidebar
 } from '@/components/ui/sidebar';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
@@ -114,22 +115,29 @@ const AppSidebar = () => {
   );
 };
 
+// Custom sidebar trigger component that handles the render function
+const CustomSidebarTrigger = () => {
+  const { state } = useSidebar();
+  
+  return (
+    <SidebarTrigger>
+      <Button variant="ghost" size="icon">
+        {state.open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+      </Button>
+    </SidebarTrigger>
+  );
+};
+
 const AppLayout = ({ children }: AppLayoutProps) => {
   const isMobile = useIsMobile();
 
   return (
-    <SidebarProvider defaultOpen={isMobile ? false : true}>
+    <SidebarProvider defaultOpen={!isMobile}>
       <div className="min-h-screen flex w-full">
         <AppSidebar />
         <div className="flex-1">
           <header className="h-14 border-b flex items-center px-4 sticky top-0 bg-background z-10">
-            <SidebarTrigger>
-              {(state) => (
-                <Button variant="ghost" size="icon">
-                  {state.open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-                </Button>
-              )}
-            </SidebarTrigger>
+            <CustomSidebarTrigger />
           </header>
           <main className="p-4 md:p-6 max-w-7xl mx-auto">
             {children}
