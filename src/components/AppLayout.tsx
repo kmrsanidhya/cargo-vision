@@ -124,9 +124,9 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         <div className="flex-1">
           <header className="h-14 border-b flex items-center px-4 sticky top-0 bg-background z-10">
             <SidebarTrigger>
-              {({ open }) => (
+              {(state) => (
                 <Button variant="ghost" size="icon">
-                  {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                  {state.open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                 </Button>
               )}
             </SidebarTrigger>
