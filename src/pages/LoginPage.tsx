@@ -61,10 +61,10 @@ const LoginPage = () => {
     setIsSubmitting(true);
     try {
       await login(values.username, values.password);
-      // Navigation will be handled by the auth context
+      // Navigation will be handled by the auth context after login is successful
     } catch (error) {
       // Error is handled by the auth context
-      console.error(error);
+      console.error('Login error:', error);
     } finally {
       setIsSubmitting(false);
     }

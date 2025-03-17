@@ -1,4 +1,3 @@
-
 import { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -122,7 +121,7 @@ const CustomSidebarTrigger = () => {
   return (
     <SidebarTrigger>
       <Button variant="ghost" size="icon">
-        {state.open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        {state === "expanded" ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       </Button>
     </SidebarTrigger>
   );

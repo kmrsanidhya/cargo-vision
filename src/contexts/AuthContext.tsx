@@ -54,6 +54,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     initAuth();
   }, []);
 
+  useEffect(() => {
+    // This effect ensures redirection happens when authentication state changes
+    if (!isLoading && isAuthenticated) {
+      console.log('User authenticated, redirecting to dashboard');
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, isLoading, navigate]);
+
   const login = async (username: string, password: string) => {
     setIsLoading(true);
     try {
@@ -72,7 +80,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         roles: ['ADMIN'] // This would come from the JWT in a real implementation
       });
       setToken(token);
-      navigate('/dashboard');
+      
+      // Navigation will be handled by the useEffect watching isAuthenticated
       toast.success('Login successful!');
     } catch (error) {
       console.error('Login failed:', error);
