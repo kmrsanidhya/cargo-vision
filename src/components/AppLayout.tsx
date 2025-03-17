@@ -87,7 +87,7 @@ const AppSidebar = () => {
                 <SidebarMenuItem key={item.path}>
                   <SidebarMenuButton 
                     asChild
-                    active={location.pathname === item.path}
+                    isActive={location.pathname === item.path}
                   >
                     <Link to={item.path}>
                       <item.icon className="h-4 w-4" />
@@ -118,15 +118,15 @@ const AppLayout = ({ children }: AppLayoutProps) => {
   const isMobile = useIsMobile();
 
   return (
-    <SidebarProvider defaultCollapsed={isMobile}>
+    <SidebarProvider defaultOpen={isMobile ? false : true}>
       <div className="min-h-screen flex w-full">
         <AppSidebar />
         <div className="flex-1">
           <header className="h-14 border-b flex items-center px-4 sticky top-0 bg-background z-10">
             <SidebarTrigger>
-              {({ collapsed }) => (
+              {({ open }) => (
                 <Button variant="ghost" size="icon">
-                  {collapsed ? <Menu className="h-5 w-5" /> : <X className="h-5 w-5" />}
+                  {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                 </Button>
               )}
             </SidebarTrigger>
